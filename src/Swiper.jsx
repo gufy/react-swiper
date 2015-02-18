@@ -56,7 +56,10 @@ var Swiper = React.createClass({
       return;
     }
     var touch = e.touches[0];
-    touch = JSON.parse(JSON.stringify(touch));
+    touch = {
+      pageY: touch.pageY,
+      pageX: touch.pageX
+    };
     this._initiateSwipe(touch);
   },
 
@@ -85,7 +88,10 @@ var Swiper = React.createClass({
       return;
     }
     var touch = e.touches[0];
-    touch = JSON.parse(JSON.stringify(touch));
+    touch = {
+        pageY: touch.pageY,
+        pageX: touch.pageX
+    };
     var direction = this._getSwipeDirection(touch);
     if (this._isSwipeDirectionUnchanged(direction)) {
       this._updateSwipe(direction, touch);
