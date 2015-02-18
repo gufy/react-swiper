@@ -5,7 +5,7 @@
 var React = require('react');
 var merge = require('react/lib/merge');
 
-var Swiper = React.createClass({displayName: 'Swiper',
+var Swiper = React.createClass({displayName: "Swiper",
   propTypes: {
     tagName: React.PropTypes.string,
     component: React.PropTypes.component,
@@ -42,7 +42,7 @@ var Swiper = React.createClass({displayName: 'Swiper',
   render: function() {
     var Component = this.props.component || React.DOM[this.props.tagName];
     return this.transferPropsTo(
-      Component({onTouchStart: this.handleTouchStart, 
+      React.createElement(Component, {onTouchStart: this.handleTouchStart, 
           onTouchEnd: this.handleTouchEnd, 
           onTouchCancel: this.handleTouchEnd, 
           onTouchMove: this.handleTouchMove}, 
@@ -55,7 +55,9 @@ var Swiper = React.createClass({displayName: 'Swiper',
     if (e.touches.length !== 1) {
       return;
     }
-    this._initiateSwipe(e.touches[0]);
+    var touch = e.touches[0];
+    touch = JSON.parse(JSON.stringify(touch));
+    this._initiateSwipe(touch);
   },
 
   handleTouchEnd: function (e) {
@@ -83,6 +85,7 @@ var Swiper = React.createClass({displayName: 'Swiper',
       return;
     }
     var touch = e.touches[0];
+    touch = JSON.parse(JSON.stringify(touch));
     var direction = this._getSwipeDirection(touch);
     if (this._isSwipeDirectionUnchanged(direction)) {
       this._updateSwipe(direction, touch);
